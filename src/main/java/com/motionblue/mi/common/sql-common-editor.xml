@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.motionblue.mi.common.EditorDao">
+
+	
+	<resultMap id="rsEditorFileVo" type="EditorFileVo">
+		<result property="id" column="EDITOR_IMG_ID" />
+ 		<result property="folder" column="EDITOR_IMG_FOLDER" />
+ 		<result property="name" column="EDITOR_IMG_NAME" />
+ 		<result property="saveName" column="EDITOR_IMG_SAVE_NAME" />
+ 		<result property="size" column="EDITOR_IMG_SIZE" />
+ 		<result property="ext" column="EDITOR_IMG_EXT" />
+	</resultMap>
+	
+	<insert id="insert" parameterType="EditorFileVo">
+	<!-- INSERT INTO TB_EDITOR_TMP_IMAGE(EDITOR_IMG_FOLDER, EDITOR_IMG_NAME, EDITOR_IMG_SAVE_NAME, EDITOR_IMG_SIZE, EDITOR_IMG_EXT, EDITOR_IMG_REG_DT)
+	VALUES('1', '2', '3', '4', '5', NOW()) -->
+	INSERT INTO TB_EDITOR_TMP_IMAGE(EDITOR_IMG_FOLDER, EDITOR_IMG_NAME, EDITOR_IMG_SAVE_NAME, EDITOR_IMG_SIZE, EDITOR_IMG_EXT, EDITOR_IMG_REG_DT)
+	VALUES(#{folder}, #{name}, #{saveName}, #{size}, #{ext}, NOW())
+	</insert>
+	
+	<delete id="deleteBySaveName" parameterType="EditorFileVo">
+	DELETE
+	FROM 	TB_EDITOR_TMP_IMAGE
+	WHERE	EDITOR_IMG_SAVE_NAME = #{saveName}
+	</delete>
+	
+	<select id="selectBySaveName" parameterType="EditorFileVo" resultMap="rsEditorFileVo">
+	SELECT
+				EDITOR_IMG_ID
+				, EDITOR_IMG_FOLDER
+				, EDITOR_IMG_NAME
+				, EDITOR_IMG_SAVE_NAME
+				, EDITOR_IMG_SIZE
+				, EDITOR_IMG_EXT
+	FROM		TB_EDITOR_TMP_IMAGE
+	WHERE		EDITOR_IMG_FOLDER = #{folder}
+	AND			EDITOR_IMG_SAVE_NAME = #{saveName}
+	</select>
+</mapper>

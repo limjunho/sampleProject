@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.motionblue.mi.user.UserDao">
+
+	<resultMap id="rsUserVo" type="UserVo">
+		<result property="userSeq" column="USER_SEQ" />
+		<result property="userId" column="USER_ID" />
+		<result property="userPw" column="USER_PW" />
+		<result property="userNm" column="USER_NM" />
+		<result property="userCls" column="USER_CLS" />
+		<result property="userClsNm" column="USER_CLS_NM" />
+		<result property="userEmail" column="USER_EMAIL" />
+		<result property="userHp" column="USER_HP" />
+		<result property="emailReceptionYn" column="EMAIL_RECEPTION_YN" />
+		<result property="smsReceptionYn" column="SMS_RECEPTION_YN" />			
+		<result property="regDt" column="REG_DT"  />		
+		<result property="regId" column="REG_ID"  />	
+	</resultMap>
+	
+	<resultMap id="rsSelectListVo" type="UserVo">
+		<result property="userSeq" column="USER_SEQ"  />
+		<result property="organNm" column="ORGAN_NM" />
+		<result property="userNm" column="USER_NM" />
+		<result property="userCls" column="USER_CLS" />
+		<result property="userDr" column="USER_DR" />
+		<result property="empNo" column="EMP_NO" />
+		<result property="hireDt" column="HIRE_DT" />
+		<result property="retireDt" column="RETIRE_DT"  />
+	</resultMap>
+	
+	<resultMap id="rsOrganListVo" type="UserVo">
+		<result property="organCd" column="ORGAN_CD"  />
+		<result property="organNm" column="ORGAN_NM" />
+	</resultMap>
+	<resultMap id="rsCodeListVo" type="UserVo">
+		<result property="cd" column="CD"  />
+		<result property="codeNm" column="CODE_NM" />
+	</resultMap>
+	<resultMap id="rsMailListVo" type="UserVo">
+		<result property="cpEmail" column="CP_EMAIL"  />
+	</resultMap>
+	
+	<resultMap id="rsSelectFileVo" type="UserFileVo">
+		<result property="userAttachSeq" column="USER_ATTACH_SEQ"  />
+		<result property="folder" column="USER_ATTACH_FOLDER" />
+		<result property="nm" column="USER_ATTACH_NM" />
+		<result property="saveNm" column="USER_ATTACH_SAVE_NM" />
+		<result property="ext" column="USER_ATTACH_EXT" />
+		<result property="mimeTy" column="USER_ATTACH_MIME_TY" />
+		<result property="size" column="USER_ATTACH_SIZE"  />
+		<result property="fieldNm" column="USER_ATTACH_FIELD_NM" />
+	</resultMap>
+	
+	<!--
+		로그인 조회 - 아이디 + 비밀번호
+	-->
+	<select id="selectByIdPwd" parameterType="UserVo" resultType="hashmap">
+	  	<![CDATA[
+			CALL USP_USER_PROC ('login', @val, @message, #{actIp}, #{actId}, #{userSeq}, #{userId}, #{userPw}, #{userNm}, #{userCls}, #{userEmail}, #{userHp}, #{emailReceptionYn}, #{smsReceptionYn}, #{menuSeqList}, #{curUserPw})
+		]]>
+	</select>
+	
+	<!-- 사원 등록 -->
+  	<select id="insert" parameterType="UserVo" >
+	  	<![CDATA[
+			CALL USP_USER_PROC (?, ?, ?, 'insert', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+		]]>
+	</select>
+	<!-- 사원 수정 -->
+	<select id="update" parameterType="UserVo" >
+	  	<![CDATA[
+			CALL USP_USER_PROC (?, ?, ?, 'update', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+		]]>
+	</select>
+	
+	<!-- 퇴사 처리 -->
+  	<select id="updateRetire" parameterType="UserVo" >
+	  	<![CDATA[
+			CALL USP_USER_PROC (?, ?, ?, 'retire', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+		]]>
+	</select>
+	
+	<!-- 팝업 사원 수정 -->
+	<select id="updatePop" parameterType="UserVo" >
+	  	<![CDATA[
+			CALL USP_USER_PROC (?, ?, ?, 'updatePop', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+		]]>
+	</select>
+	<!-- 팝업 사원정보 비밀번호 변경 -->
+	<select id="updateUserPw" parameterType="UserVo" >
+	    
+	  	<![CDATA[
+	  	UPDATE TB_USER
+	  	   SET user_pw = #{userPw}
+	  	WHERE user_id = #{userId}
+		-- CALL USP_USER_PROC (?, ?, ?, 'userPw', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+		]]>
+	</select>
+	
+	<!-- 사원 프로필 파일정보 등록 -->
+  	<select id="insertAttach" parameterType="UserFileVo" >
+	  	<![CDATA[
+			CALL USP_USER_FILE_PROC (?, ?, ?, 'insAttach', ?, ?, ?, ?, ?, ?, ?, ?)
+		]]>
+	</select>
+	
+	<!-- 사원 프로필 파일정보 등록 -->
+  	<select id="updateAttach" parameterType="UserFileVo" >
+	  	<![CDATA[
+			CALL USP_USER_FILE_PROC (?, ?, ?, 'udtAttach', ?, ?, ?, ?, ?, ?, ?, ?)
+		]]>
+	</select>
+ 
+	<!-- 조직 수정 -->
+	<select id="select" parameterType="UserVo" resultMap="rsUserVo">
+		<![CDATA[
+			CALL USP_USER_SELECT ('select', #{userSeq}, '', '', 0, 0) 
+		]]>
+	</select> 
+	
+	<!-- 코드 목록 수 조회 -->
+	
+	<select id="selectCount" parameterType="UserVo" resultType="Integer">
+		<![CDATA[
+			CALL USP_USER_SELECT ('count', 0, #{searchItem}, #{searchWord}, 0, 0, '', #{retire}) 
+		]]>
+	</select>
+	
+	<!-- 코드 목록 조회 -->
+	
+	<select id="selectList" parameterType="UserVo" resultMap="rsSelectListVo">
+		<![CDATA[
+			CALL USP_USER_SELECT ('list', 0, #{searchItem}, #{searchWord}, #{startNum}, #{pageSize}, '', #{retire}) 
+		]]>
+	</select>
+	
+	<!-- 현재 사원 수 조회 -->
+	
+	<select id="selectNowCount" parameterType="UserVo" resultType="Integer">
+		<![CDATA[
+			CALL USP_USER_SELECT ('nowCnt', 0, '', '', 0, 0, '', '') 
+		]]>
+	</select>
+	
+	<!-- 총 입사자 수 조회 -->
+	
+	<select id="selectHireCount" parameterType="UserVo" resultType="Integer">
+		<![CDATA[
+			CALL USP_USER_SELECT ('hireCnt', 0, '', '', 0, 0, '', '') 
+		]]>
+	</select>
+	
+	<!-- 총 퇴사자 수 조회 -->
+	
+	<select id="selectRetireCount" parameterType="UserVo" resultType="Integer">
+		<![CDATA[
+			CALL USP_USER_SELECT ('retireCnt', 0, '', '', 0, 0, '', '') 
+		]]>
+	</select>
+	
+	<!-- 모든 조직 조회 -->
+	
+	<select id="selectOrganList" parameterType="UserVo" resultMap="rsOrganListVo">
+		<![CDATA[
+			CALL USP_USER_SELECT ('organList', 0, '', '', 0, 0, '', '') 
+		]]>
+	</select>
+	
+	<!-- 모든 직책 조회 -->
+	
+	<select id="selectJcList" parameterType="UserVo" resultMap="rsCodeListVo">
+		<![CDATA[
+			CALL USP_USER_SELECT ('jcList', 0, '', '', 0, 0, '', '') 
+		]]>
+	</select>
+	
+	<!-- 모든 직급 조회 -->
+	
+	<select id="selectJgList" parameterType="UserVo" resultMap="rsCodeListVo">
+		<![CDATA[
+			CALL USP_USER_SELECT ('jgList', 0, '', '', 0, 0, '', '') 
+		]]>
+	</select>
+	
+	<!-- 사원번호 마지막번호 조회 -->
+	<select id="selectLastNum" parameterType="UserVo" resultType="String">
+		<![CDATA[
+			CALL USP_USER_SELECT ('lastNum', 0, '', '', 0, 0, '', '') 
+		]]>
+	</select>
+	<!-- 프리랜서 전용사원번호 마지막번호 조회 -->
+	<select id="selectLastNumFree" parameterType="UserVo" resultType="String">
+		<![CDATA[
+			CALL USP_USER_SELECT ('lastNumFr', 0, '', '', 0, 0, '', '') 
+		]]>
+	</select>
+	
+	<!-- 아이디 중복 체크 -->
+	
+	<select id="selectIdCheck" parameterType="UserVo" resultType="Integer">
+		SELECT COUNT(*) FROM tb_user_info WHERE USER_ID = #{userId}
+	</select>
+	
+	<!-- 메일관리자 메일 조회 -->
+	
+	<select id="selectMailManager" parameterType="UserVo" resultMap="rsMailListVo">
+		<![CDATA[
+			CALL USP_USER_SELECT ('mailMng', 0, '', '', 0, 0, '', '') 
+		]]>
+	</select>
+	
+	<!-- 현재 사원 목록 조회, jsbak -->
+	
+	<select id="selectNowList" parameterType="UserVo" resultMap="rsSelectListVo">
+		<![CDATA[
+			CALL USP_USER_SELECT ('nowList', 0, '', '', 0, 0, '', '') 
+		]]>
+	</select>
+	
+	<!-- 사원 업로드 파일 조회 -->
+	
+	<select id="selectAttach" parameterType="UserFileVo" resultMap="rsSelectFileVo">
+		<![CDATA[
+			CALL USP_USER_SELECT ('userFile', #{userSeq}, '', '', 0, 0, '', '')
+		]]>
+	</select>
+	
+	<!-- 사원정보 조회 -->
+	<select id="selectUserList" parameterType="UserVo" resultMap="rsUserVo">
+		<![CDATA[
+			CALL USP_USER_SELECT ('userList', 0, '', #{searchWord}, 0, 0, '', '') 
+		]]>
+	</select> 
+	
+	<!-- 사용자 정보 조회 -->
+	<select id="findUserByName" parameterType="UserVo" resultMap="rsUserVo">
+	  	<![CDATA[
+			SELECT *
+			FROM TB_USER
+			WHERE user_id = #{userId}
+		]]>
+	</select>
+</mapper>

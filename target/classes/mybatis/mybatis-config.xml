@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd ">
+<configuration>
+	<settings>
+		<setting name="cacheEnabled" value="true" />
+		<setting name="useGeneratedKeys" value="false" />
+<!-- 		<setting name="defaultExecutorType" value="BATCH" /> -->
+		<setting name="jdbcTypeForNull" value="NULL" />
+	</settings>
+
+	<typeAliases>
+		<typeAlias alias="ApiVo" type="com.motionblue.mi.api.ApiVo" />
+		<typeAlias alias="BbsVo" type="com.motionblue.mi.bbs.BbsVo" />
+		<typeAlias alias="BbsFileVo" type="com.motionblue.mi.bbs.BbsFileVo" />
+		<typeAlias alias="EditorFileVo" type="com.motionblue.mi.common.EditorFileVo" />
+		<typeAlias alias="CommonVo" type="com.motionblue.mi.common.CommonVo" />
+		<typeAlias alias="UserVo" type="com.motionblue.mi.user.UserVo" />
+		<typeAlias alias="UserFileVo" type="com.motionblue.mi.user.UserFileVo" />
+		<typeAlias alias="CodeVo" type="com.motionblue.mi.code.CodeVo" />
+		<typeAlias alias="AppDownVo" type="com.motionblue.mi.api.AppDownVo" />
+	<!-- 
+		<typeAlias alias="MemberVo" type="com.motionblue.member.MemberVo" />
+		<typeAlias alias="HotkeyVo" type="com.motionblue.hotkey.HotkeyVo" />
+		<typeAlias alias="AnnualVo" type="com.motionblue.annual.AnnualVo" />
+		<typeAlias alias="CodeVo" type="com.motionblue.code.CodeVo" />
+		<typeAlias alias="CostVo" type="com.motionblue.cost.CostVo" />
+		<typeAlias alias="DailyWorkVo" type="com.motionblue.dailyWork.DailyWorkVo" />
+		<typeAlias alias="DiligenceVo" type="com.motionblue.diligence.DiligenceVo" />
+		<typeAlias alias="DiligenceSetVo" type="com.motionblue.diligence.DiligenceSetVo" />
+		<typeAlias alias="DiligenceUserSetVo" type="com.motionblue.diligence.DiligenceUserSetVo" />
+		<typeAlias alias="OrganVo" type="com.motionblue.organ.OrganVo" />
+		<typeAlias alias="MyProjectVo" type="com.motionblue.project.MyProjectVo" />
+		<typeAlias alias="ProgressVo" type="com.motionblue.project.ProgressVo" />
+		<typeAlias alias="ProgressMemberVo" type="com.motionblue.project.ProgressMemberVo" />
+		<typeAlias alias="ProgressStepVo" type="com.motionblue.project.ProgressStepVo" />
+		<typeAlias alias="ProjectFileVo" type="com.motionblue.project.ProjectFileVo" />
+		<typeAlias alias="ProjectbbsVo" type="com.motionblue.project.ProjectbbsVo" />
+		<typeAlias alias="SpendVo" type="com.motionblue.spend.SpendVo" />
+		<typeAlias alias="ToolVo" type="com.motionblue.tool.ToolVo" />
+		<typeAlias alias="PeopleVo" type="com.motionblue.people.PeopleVo" />
+    	<typeAlias alias="PaymentVo" type="com.motionblue.payment.PaymentVo" />
+	 -->
+	</typeAliases>
+</configuration>

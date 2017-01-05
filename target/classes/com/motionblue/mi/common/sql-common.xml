@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.motionblue.mi.common.CommonDao">
+
+	
+	<resultMap id="rsCommonVo" type="CommonVo">
+		<result property="userNm" column="USER_NM" />
+		<result property="empNo" column="EMP_NO" />
+	</resultMap>
+	
+	<resultMap id="rsClsDrCodeVo" type="CommonVo">
+		<result property="cd" column="CD" />
+		<result property="codeNm" column="CODE_NM" />
+		<result property="upCode" column="UP_CODE" />
+	</resultMap>
+	
+	<resultMap id="rsMenuCodeVo" type="CommonVo">
+		<result property="authSeq" column="AUTH_SEQ" />
+		<result property="upMenuCode" column="UP_MENU_CODE" />
+		<result property="upMenuNm" column="UP_MENU_NM" />
+		<result property="menuCode" column="MENU_CODE" />
+		<result property="menuNm" column="MENU_NM" />
+		<result property="url" column="URL" />
+		<result property="authOrd" column="AUTH_ORD" />
+		<result property="memo" column="MEMO" />
+		<result property="regDt" column="REG_DT" />
+		<result property="regId" column="REG_ID" />
+	</resultMap>
+	<!--
+		맴버 조회 - 아이디 + 비밀번호
+	-->
+	<!-- <procedure id="selectByIdPwd" parameterMap="paramLoginCommonVo" >
+	  	<![CDATA[
+			CALL USP_MEMBER_LOGIN (?, ?, ?, '', ?, ?, ?)
+		]]>
+	</procedure>
+	-->
+	
+		<!-- 사원 조회 -->
+	
+	<select id="selectEmpList" parameterType="CommonVo" resultMap="rsCommonVo">
+		<![CDATA[
+			CALL USP_COMMON_SELECT ('empList',#{organCd}, #{userCls}, #{userDr}, #{addColumn}, #{userNm})
+		]]>
+	</select> 
+	
+		<!-- 직급 직책 조회 -->
+	
+	<select id="selectClsDrCode" parameterType="CommonVo" resultMap="rsClsDrCodeVo">
+		<![CDATA[
+			CALL USP_COMMON_SELECT ('clsDrCode','', '', '', NULL, '');
+		]]>
+	</select> 
+	
+	<!-- 메뉴 권한 리스트 조회 -->
+	<select id="selectMenuCodeList" resultMap="rsMenuCodeVo">
+		SELECT
+			AUTH_SEQ
+			, UP_MENU_CODE
+			, UP_MENU_NM
+			, MENU_CODE
+			, MENU_NM
+			, URL
+			, AUTH_ORD
+			, MEMO
+			, REG_DT
+			, REG_ID
+		FROM tb_auth_manager 
+		WHERE URL IS NOT NULL
+		ORDER BY UP_MENU_CODE ASC, AUTH_ORD ASC
+	</select> 
+	
+	<!-- 메뉴 권한 PM PL 조회 -->
+	<select id="selectPojectAuthCheck" parameterType="CommonVo" resultType="Integer">
+		SELECT COUNT(*) 
+		FROM tb_project A
+		LEFT JOIN tb_project_member B
+			ON A.PJ_SEQ = B.PJ_SEQ
+		WHERE (B.PJM_ROLE = 'AN0001' OR B.PJM_ROLE = 'AN0002')
+			AND B.PJM_EMP_NO = #{empNo}
+	</select> 
+	
+	
+	
+</mapper>

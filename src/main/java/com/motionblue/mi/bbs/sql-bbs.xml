@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.motionblue.mi.bbs.BbsDao">
+
+	<resultMap id="rsBbsListVo" type="BbsVo">
+		<result property="bbsSeq" column="BBS_SEQ" />
+		<result property="title" column="BBS_TITLE" />
+		<result property="userNm" column="USER_NM" />
+		<result property="userCls" column="USER_CLS" />
+		<result property="regDt" column="BBS_REG_DT" />
+		<result property="cmtCnt" column="CMT_CNT" />
+		<result property="userCheck" column="USER_CHECK" />
+	</resultMap>
+	
+	<resultMap id="rsBbsVo" type="BbsVo">
+		<result property="bbsSeq" column="BBS_SEQ" />
+		<result property="title" column="BBS_TITLE" />
+		<result property="content" column="BBS_CONT" />
+		<result property="userId" column="USER_ID" />
+		<result property="userNm" column="USER_NM" />
+		<result property="userCls" column="USER_CLS" />
+		<result property="regDt" column="BBS_REG_DT" />
+	</resultMap>
+	
+	<resultMap id="rsBbsFileListVo" type="BbsFileVo">
+		<result property="bbsAttachSeq" column="BBS_ATTACH_SEQ" />
+		<result property="bbsSeq" column="BBS_SEQ" />
+		<result property="folder" column="BBS_ATTACH_FOLDER"  />
+		<result property="nm" column="BBS_ATTACH_NM" />
+		<result property="saveNm" column="BBS_ATTACH_SAVE_NM" />
+		<result property="ext" column="BBS_ATTACH_EXT" />
+		<result property="mimeTy" column="BBS_ATTACH_MIME_TY"  />
+		<result property="size" column="BBS_ATTACH_SIZE" />
+		<result property="fieldNm" column="BBS_ATTACH_FIELD_NM"  />
+		<result property="regDt" column="BBS_ATTACH_REG_DT" />
+	</resultMap>
+	
+	<resultMap id="rsBbsCmtListVo" type="BbsVo">
+		<result property="bbsCmtSeq" column="BBS_COMMENT_SEQ" />
+		<result property="bbsCmtCont" column="BBS_COMMENT_CONT"  />
+		<result property="userId" column="USER_ID"  />
+		<result property="userNm" column="USER_NM" />
+		<result property="userCls" column="USER_CLS" />
+		<result property="bbsCmtRegDt" column="BBS_COMMENT_REG_DT" />
+	</resultMap>
+	
+	<resultMap id="rsBbsCheckList" type="BbsVo">
+		<result property="userNm" column="USER_NM"  />
+		<result property="userCls" column="USER_CLS_NM" />
+		<result property="regDt" column="REG_DT" />
+	</resultMap>
+	
+	<resultMap id="rsBbsUncheckList" type="BbsVo">
+		<result property="userNm" column="USER_NM" />
+		<result property="userCls" column="USER_CLS_NM"  />
+	</resultMap>
+	
+	<resultMap id="rsBbsCheckCnt" type="BbsVo">
+		<result property="userCheck" column="CHECKED_CNT"  />
+		<result property="userUncheck" column="UNCHECKED_CNT"  />
+	</resultMap>
+	
+	<!--
+		게시글 등록
+	-->
+	<select id="insert" parameterType="BbsVo"  resultType="hashmap">
+	  	<![CDATA[
+			CALL USP_BBS_PROC (@val, @message, #{actIp}, 'insert', #{bbsInfoId}, #{title}, #{content}, #{regId}, #{bbsSeq})
+		]]>
+	</select>
+	<!--
+		게시글 수정
+	-->
+	<select id="update" parameterType="BbsVo"  resultType="hashmap">
+	  	<![CDATA[
+			CALL USP_BBS_PROC (@val, @message, #{actIp}, 'update', #{bbsInfoId}, #{title}, #{content}, #{regId}, #{bbsSeq})
+		]]>
+	</select>
+	<!--
+		코드 삭제
+	-->
+	<select id="delete" parameterType="BbsVo"  resultType="hashmap">
+	  	<![CDATA[
+			CALL USP_BBS_PROC (@val, @message, #{actIp}, 'delete', #{bbsInfoId}, #{title}, #{content}, #{regId}, #{bbsSeq})
+		]]>
+	</select>
+	<!--
+		게시글 등록
+	-->
+	<select id="insertCmt" parameterType="BbsVo"  resultType="hashmap">
+	  	<![CDATA[
+			CALL USP_BBS_PROC (@val, @message, #{actIp}, 'insertCmt', #{bbsInfoId}, #{title}, #{content}, #{regId}, #{bbsSeq})
+		]]>
+	</select>
+	<!--
+		게시글 수정
+	-->
+	<select id="updateCmt" parameterType="BbsVo"  resultType="hashmap">
+	  	<![CDATA[
+			CALL USP_BBS_PROC (@val, @message, #{actIp}, 'updateCmt', #{bbsInfoId}, #{title}, #{content}, #{regId}, #{bbsSeq})
+		]]>
+	</select>
+	<!--
+		코드 삭제
+	-->
+	<select id="deleteCmt" parameterType="BbsVo"  resultType="hashmap">
+	  	<![CDATA[
+			CALL USP_BBS_PROC (@val, @message, #{actIp}, 'deleteCmt', #{bbsInfoId}, #{title}, #{content}, #{regId}, #{bbsSeq})
+		]]>
+	</select>
+	
+	<!-- 게시글 파일정보 등록 -->
+  	<select id="insertAttach" parameterType="BbsFileVo"  resultType="hashmap">
+	  	<![CDATA[
+			CALL USP_BBS_FILE_PROC (@val, @message, #{actIp}, 'insAttach', #{bbsSeq}, #{folder}, #{nm}, #{saveNm}, #{ext}, #{mimeTy}, #{size}, #{fieldNm})
+		]]>
+	</select>
+	
+	<!-- 게시글 파일정보 등록 -->
+  	<select id="delAttach" parameterType="BbsFileVo"  resultType="hashmap">
+	  	<![CDATA[
+			CALL USP_BBS_FILE_PROC (@val, @message, #{actIp}, 'delAttach', #{bbsSeq}, #{folder}, #{nm}, #{saveNm}, #{ext}, #{mimeTy}, #{size}, #{fieldNm})
+		]]>
+	</select>
+	
+	<select id="selectCount" parameterType="BbsVo" resultType="Integer">
+		<![CDATA[
+			CALL USP_BBS_SELECT ('count', NULL, #{bbsInfoId}, NULL, #{searchItem}, #{searchWord}, #{startNum}, #{pageSize}, '', '', '') 
+		]]>
+	</select> 
+	
+	<select id="selectList" parameterType="BbsVo" resultMap="rsBbsListVo">
+		<![CDATA[
+			CALL USP_BBS_SELECT ('list', #{userId}, #{bbsInfoId}, NULL, #{searchItem}, #{searchWord}, #{startNum}, #{pageSize}, '', '', '')  
+		]]>
+	</select> 
+	
+	<select id="select" parameterType="BbsVo" resultMap="rsBbsVo, rsBbsVo, rsBbsVo">
+		<![CDATA[
+			CALL USP_BBS_SELECT ('select', #{userId}, #{bbsInfoId}, #{bbsSeq}, #{searchItem}, #{searchWord}, NULL, NULL, NULL) 
+		]]>
+	</select>
+	
+	<select id="selectFileList" parameterType="BbsVo" resultMap="rsBbsFileListVo">
+		<![CDATA[
+			CALL USP_BBS_SELECT ('fileList', NULL, #{bbsInfoId}, #{bbsSeq}, NULL, NULL, NULL, NULL, NULL) 
+		]]>
+	</select> 
+	
+	<select id="selectCommentList" parameterType="BbsVo" resultMap="rsBbsCmtListVo">
+		<![CDATA[
+			CALL USP_BBS_SELECT ('cmtList', NULL, #{bbsInfoId}, #{bbsSeq}, NULL, NULL, NULL, NULL, NULL) 
+		]]>
+	</select> 
+	
+	<select id="selectUserCheckList" parameterType="BbsVo" resultMap="rsBbsCheckList">
+		<![CDATA[
+			CALL USP_BBS_SELECT ('check', #{userId}, NULL, #{bbsSeq}, NULL, NULL, NULL, NULL, NULL)
+		]]>
+	</select> 
+	
+	<select id="selectUserUncheckList" parameterType="BbsVo" resultMap="rsBbsUncheckList">
+		<![CDATA[
+			CALL USP_BBS_SELECT ('uncheck', #{userId}, NULL, #{bbsSeq}, NULL, NULL, NULL, NULL, NULL)
+		]]>
+	</select> 
+	
+	<select id="selectUserCheckCnt" parameterType="BbsVo" resultMap="rsBbsCheckCnt">
+		<![CDATA[
+			CALL USP_BBS_SELECT ('checkCnt', #{userId}, NULL, #{bbsSeq}, NULL, NULL, NULL, NULL, NULL)
+		]]>
+	</select> 
+</mapper>

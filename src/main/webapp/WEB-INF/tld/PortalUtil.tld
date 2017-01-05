@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+        version="2.0">
+    
+  <tlib-version>2.0</tlib-version>
+<!--   <jsp-version>1.2</jsp-version> -->
+  <short-name>PortalUtil</short-name>
+  <uri>/WEB-INF/tld/PortalUtil.tld</uri>
+  
+  <function>
+    <name>getEncrypt</name>
+    <function-class>portal.common.security.seed.SeedUtil</function-class>
+    <function-signature>String encryptStr(java.lang.String)</function-signature>
+  </function>
+  
+  <function>
+    <name>checkCheckBox</name>
+    <function-class>portal.common.util.HtmlUtil</function-class>
+    <function-signature>String checkCheckBox(java.lang.String, java.lang.String)</function-signature>
+  </function>
+  
+  <function>
+    <name>checkSelected</name>
+    <function-class>portal.common.util.HtmlUtil</function-class>
+    <function-signature>String checkSelected(java.lang.String, java.lang.String)</function-signature>
+  </function>
+  
+  <function>
+    <name>isEquals</name>
+    <function-class>portal.common.util.HtmlUtil</function-class>
+    <function-signature>String isEquals(java.lang.String, java.lang.String, java.lang.String)</function-signature>
+  </function>
+  
+  <function>
+    <name>isEqualsElse</name>
+    <function-class>portal.common.util.HtmlUtil</function-class>
+    <function-signature>String isEquals(java.lang.String, java.lang.String, java.lang.String, java.lang.String)</function-signature>
+  </function>
+  
+  <function>
+    <name>noHtml</name>
+    <function-class>portal.common.util.HtmlUtil</function-class>
+    <function-signature>String noHtml(java.lang.String)</function-signature>
+  </function>
+  
+  <function>
+    <name>getIndexOfDecode</name>
+    <function-class>portal.common.util.HtmlUtil</function-class>
+    <function-signature>String getIndexOfDecode(java.lang.String, java.lang.String, java.lang.String)</function-signature>
+  </function>
+  
+  <function>
+    <name>getIndexOfDecodeElse</name>
+    <function-class>portal.common.util.HtmlUtil</function-class>
+    <function-signature>String getIndexOfDecodeElse(java.lang.String, java.lang.String, java.lang.String, java.lang.String)</function-signature>
+  </function>
+  
+  <!-- 사용자 페이징 -->
+  <function>
+    <name>getNavi</name>
+    <function-class>com.motionblue.mi.common.PagingUtil</function-class>
+    <function-signature>String getNavi(java.lang.Integer, java.lang.Integer, java.lang.Long, java.lang.String, java.lang.String)</function-signature>
+  </function>
+  
+  <!-- 사용자 페이징 블럭사이즈 -->
+  <function>
+    <name>getNavi2</name>
+    <function-class>com.motionblue.mi.common.PagingUtil</function-class>
+    <function-signature>String getNavi2(java.lang.Integer, java.lang.Integer, java.lang.Long, java.lang.String, java.lang.String, java.lang.Integer)</function-signature>
+  </function>
+  
+  <!-- 사용자 페이징 블럭사이즈 -->
+  <function>
+    <name>getNaviSub</name>
+    <function-class>com.motionblue.mi.common.PagingUtil</function-class>
+    <function-signature>String getNaviSub(java.lang.Integer, java.lang.Integer, java.lang.Long, java.lang.String, java.lang.String, java.lang.Integer)</function-signature>
+  </function>
+  
+  <!-- 관리자 페이징 -->
+  <function>
+    <name>getAdminNavi</name>
+    <function-class>com.motionblue.mi.common.PagingUtil</function-class>
+    <function-signature>String getAdminNavi(java.lang.Integer, java.lang.Integer, java.lang.Long, java.lang.String, java.lang.String)</function-signature>
+  </function>
+  
+  <!-- 2014.8.13, Date -->
+  <function>
+    <name>getSqlDateString</name>
+    <function-class>portal.common.util.DateUtil</function-class>
+    <function-signature>String getSqlDateString(java.lang.String)</function-signature>
+  </function>
+  
+  <!-- 2014.8.13, Date -->
+  <function>
+    <name>getSqlDateTimeString</name>
+    <function-class>portal.common.util.DateUtil</function-class>
+    <function-signature>String getSqlDateTimeString(java.lang.String)</function-signature>
+  </function>
+  
+  <!-- 2014.08.17, 문자열(한글, 영문, 숫자, 특수 문자) 제한된 바이트 단위로 자르기 -->
+  <function>
+    <name>cutString</name>
+    <function-class>portal.common.util.StringUtil</function-class>
+    <function-signature>String cutString(java.lang.String, java.lang.Integer, java.lang.String)</function-signature>
+  </function>
+  
+  <!--
+  /**
+	 * tokenStr 로 split 한 배열 범위내 index 에 해당하는 값을 되돌림. 해당 없을 경우 ""
+	 * @param targetStr split 대상 문자열
+	 * @param tokenStr split 기준 token
+	 * @param index split 후 요청 index
+	 * @return split 후 요청 index 문자열
+	 */
+  -->
+  <function>
+    <name>getSplitIndexStr</name>
+    <function-class>portal.common.util.StringUtil</function-class>
+    <function-signature>String getSplitIndexStr(java.lang.String, java.lang.String, java.lang.Integer)</function-signature>
+  </function>
+  
+  <!--
+  /**
+     * String형식의 날짜를 formatted(yyyy-mm-dd) String형식의 날짜로 바꾼다. (포맷 변경 하지 말것)
+     * 
+     * @param date  날짜 형식의 문자열
+     * @return      the formatted string
+     * @throws ParseException 
+     */
+  -->
+  <function>
+    <name>getDateString</name>
+    <function-class>portal.common.util.DateUtil</function-class>
+    <function-signature>String getDateString(java.lang.String)</function-signature>
+  </function>
+  
+   <!-- 2014.09.10, 입력된 숫자를 받아 천단위로 콤마를 붙여 반환한다. -->
+  <function>
+    <name>getThousandsCommas</name>
+    <function-class>portal.common.util.StringUtil</function-class>
+    <function-signature>String getThousandsCommas(java.lang.Integer)</function-signature>
+  </function>
+  
+   <!-- 2014.09.10, 입력된 숫자를 받아 천단위로 콤마를 붙여 반환한다. -->
+  <function>
+    <name>getThousandsCommas2</name>
+    <function-class>portal.common.util.StringUtil</function-class>
+    <function-signature>String getThousandsCommas(java.lang.Long)</function-signature>
+  </function>
+  
+  <!-- 태그 제거 -->
+  <function>
+  	<name>removeTag</name>
+    <function-class>portal.common.util.StringUtil</function-class>
+    <function-signature>String removeTag(java.lang.String)</function-signature>
+  </function>
+  
+  <!-- 태그 제거 -->
+  <function>
+  	<name>removeTag2</name>
+    <function-class>portal.common.util.StringUtil</function-class>
+    <function-signature>String removeTag2(java.lang.String, java.lang.Integer, java.lang.String)</function-signature>
+  </function>
+  
+  <!-- 사용자 프로필 이미지 경로 -->
+  <function>
+  	<name>getProfileUrl</name>
+    <function-class>com.motionblue.mi.common.GreencarUtil</function-class>
+    <function-signature>String getProfileUrl(java.lang.String, java.lang.String)</function-signature>
+  </function>
+  
+  <!-- 48시간 이내 NEW -->
+  <function>
+  	<name>getDateNewYn</name>
+    <function-class>portal.common.util.DateUtil</function-class>
+    <function-signature>String getDateNewYn(java.lang.String)</function-signature>
+  </function>
+  
+  
+</taglib>

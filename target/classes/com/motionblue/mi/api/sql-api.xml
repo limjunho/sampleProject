@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.motionblue.mi.api.ApiDao">
+
+	<resultMap id="rsAppList" type="AppDownVo">
+		<result property="seq" column="APP_SEQ" />
+		<result property="name" column="NAME" />
+		<result property="iconUrl" column="ICON_URL" />
+		<result property="description" column="DESCRIPTION" />
+		<result property="packageName" column="PACKAGE_NAME" />
+		<result property="versionName" column="VERSION_NAME" />
+		<result property="versionCode" column="VERSION_CODE" />
+		<result property="imgUrl" column="IMG_URL" />
+		<result property="marketUrl" column="MARKET_URL" />
+		<result property="videoUrl" column="VIDEO_URL" />
+	</resultMap>
+
+	<select id="selectAppList" parameterType="ApiVo" resultMap="rsAppList">
+		SELECT
+				APP_SEQ
+				, NAME
+				, ICON_URL
+				, DESCRIPTION
+				, PACKAGE_NAME
+				, VERSION_NAME
+				, VERSION_CODE
+				, IMG_URL
+				, MARKET_URL
+				, VIDEO_URL
+				, OPEN_YN
+				, REG_DT
+		FROM 	TB_APP
+		WHERE	OPEN_YN = 'Y'
+		ORDER BY APP_SEQ DESC
+		LIMIT	#{startNum}, #{pageSize}
+	</select>
+	
+	<select id="selectAppCount" parameterType="ApiVo" resultType="Integer">
+		SELECT
+				COUNT(*)
+		FROM	TB_APP
+		WHERE	OPEN_YN = 'Y'
+	</select>
+
+	<select id="selectAppUserAge" parameterType="AppDownVo" resultType="String">
+		SELECT 
+				CONCAT(USER_AGE_MIN, ',', USER_AGE_MAX)
+		FROM 	TB_APP
+		WHERE	APP_SEQ = #{seq}
+	</select>
+
+	<select id="selectAppStudyCont" parameterType="AppDownVo" resultType="String">
+		SELECT 
+				B.`CD_NM`
+		FROM 	TB_APP_STUDY AS A
+		LEFT JOIN TB_CD AS B ON A.`APP_CODE` = B.`CD`
+		WHERE	A.`APP_SEQ` = #{seq}
+		ORDER BY B.`CD_ORD`
+	</select>
+	
+</mapper>
