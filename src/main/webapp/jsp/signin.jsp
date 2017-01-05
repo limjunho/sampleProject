@@ -69,7 +69,7 @@
      	아이디 : <input type="text" id="userId" name="userId">
      	비밀번호 : <input type="password" id="userPw" name="userPw">
     	<button type="submit">Sign in</button>
-    	<button type="button" onclick="signin();">Ajax Sign in11111111111123121111</button>
+    	<button type="button" onclick="signin();">Ajax Sign in11zsdfzsdfasfsafsdafsdafdafsdafsdafsda121111</button>
     </form>
 	</div>
 </body>
